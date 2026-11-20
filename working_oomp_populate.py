@@ -109,6 +109,7 @@ def get_assembly_steps(**kwargs):
 
 
 def get_part(**kwargs):
+    import oobb
     width = kwargs.get("width", 9)
     height = kwargs.get("height", width)
     depth = kwargs.get("depth", 6)
@@ -164,6 +165,7 @@ def get_part(**kwargs):
         "plate_edge_reduction_mm": 1,
         "plate_edge_radius_mm": 1.5,
         "m6_hole_diameter_mm": 6.5,
+        "disc_m3_hole_diameter_mm": 2*oobb.gv("hole_radius_m3","3dpr"),
         "outer_bolt_envelope_diameter_mm": 11.54,
         "guide_clearance_from_sweep_mm": 2,
         "disc_to_frame_gap_mm": disc_to_frame_gap_mm,

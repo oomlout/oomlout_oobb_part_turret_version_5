@@ -1,3 +1,4 @@
+<!-- oobb-presentation:start -->
 # 9 × 9 OOBB turret
 
 AI-generated CAD illustrations and instructions. Physical fit is unverified.
@@ -8,7 +9,9 @@ AI-generated CAD illustrations and instructions. Physical fit is unverified.
 
 ## Details
 
-The 6 mm frame and disc have a 75 mm usable centre. Exposed frame edges and housing edges have a 1.5 mm radius. Flat lands support the housings. The lower housing captures all three vertical nuts.
+The 6 mm frame and disc have a 75 mm usable centre. The disc carries M6 holes on the 15 mm grid and M3 holes on the 7.5 mm half-grid. The outer bearing track stays solid. Exposed frame edges and housing edges have a 1.5 mm radius. Flat lands support the housings. The lower housing captures all three vertical nuts.
+
+![Underside showing the recessed M6 nuts](underside.png)
 
 ## Parts
 
@@ -81,3 +84,4 @@ Install three M6 × 40 hex bolts from above at each station. The two outer bolts
 Bring each edge roller into light contact. Tighten the edge axles and turn the disc through a full revolution. Check that the rollers turn freely and the housings sit flat.
 
 [![Set the running fit](assembly/cards/step_08.png)](assembly/render/raw/step_08.png)
+<!-- oobb-presentation:end -->

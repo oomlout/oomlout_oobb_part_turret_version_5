@@ -27,6 +27,7 @@ assembly_steps:
 oobb_details:
   bearing: '606'
   depth: 6
+  disc_m3_hole_diameter_mm: 3.6
   disc_to_frame_gap_mm: 1
   guide:
     bolt_row_x_mm: 8.5

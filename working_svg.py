@@ -28,17 +28,23 @@ def get_disc_pattern(**kwargs):
     bolt_radius = kwargs["outer_bolt_envelope_diameter_mm"] / 2
     usable_radius = diameter * pitch / 2
     hole_radius = kwargs["m6_hole_diameter_mm"] / 2
+    m3_radius = kwargs["disc_m3_hole_diameter_mm"] / 2
     holes = []
-    for row in range(diameter):
-        for column in range(diameter):
-            x = (column - (diameter - 1) / 2) * pitch
-            y = (row - (diameter - 1) / 2) * pitch
-            if hypot(x, y) + hole_radius <= usable_radius:
+    m3_holes = []
+    for row in range(2*diameter-1):
+        for column in range(2*diameter-1):
+            x = (column - diameter + 1)*pitch/2
+            y = (row - diameter + 1)*pitch/2
+            if row%2 or column%2:
+                if hypot(x,y)+m3_radius <= usable_radius:
+                    m3_holes.append((x,y))
+            elif hypot(x,y)+hole_radius <= usable_radius:
                 holes.append((x, y))
     outer_hole_radius = max(hypot(x, y) for x, y in holes)
     bolt_sweep = outer_hole_radius + bolt_radius
     return {
         "holes": holes,
+        "m3_holes": m3_holes,
         "outer_hole_radius": outer_hole_radius,
         "bolt_sweep": bolt_sweep,
         "usable_radius": usable_radius,
@@ -150,6 +156,8 @@ def draw_plan(**kwargs):
     axis.add_patch(Circle((0, 0), sweep, fill=False, ec=ACCENT, ls="--", lw=1.35))
     for x, y in layout["holes"]:
         axis.add_patch(Circle((x, y), hole_radius, fc=PAPER, ec=INK, lw=.8))
+    for x, y in layout["m3_holes"]:
+        axis.add_patch(Circle((x,y),kwargs["disc_m3_hole_diameter_mm"]/2,fc=PAPER,ec=INK,lw=.6))
     # One outermost hole carries an example bolt envelope.
     x, y = max(layout["holes"], key=lambda point: (hypot(*point), point[0], point[1]))
     axis.add_patch(Circle((x, y), kwargs["outer_bolt_envelope_diameter_mm"] / 2,

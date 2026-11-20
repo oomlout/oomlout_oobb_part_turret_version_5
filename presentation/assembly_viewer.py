@@ -6,6 +6,7 @@ import hashlib
 import html
 import json
 from pathlib import Path
+from tempfile import TemporaryDirectory
 import fitz
 
 
@@ -92,7 +93,12 @@ def publish(**kwargs):
         "__DATA__", json.dumps(payload, separators=(",", ":")).replace("<", "\\u003c")
     )
     target = output / "assembly_instructions.html"
-    target.write_text(result, encoding="utf-8")
+    # Replace the finished viewer so an open or memory-mapped preview can keep
+    # reading its previous file while a new edition is published.
+    with TemporaryDirectory(dir=output) as temporary:
+        staged = Path(temporary) / target.name
+        staged.write_text(result,encoding="utf-8")
+        staged.replace(target)
     report_path = output / "validation.json"
     report = json.loads(report_path.read_text())
     report.update(

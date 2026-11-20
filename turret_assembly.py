@@ -9,6 +9,7 @@ import subprocess
 from tempfile import TemporaryDirectory
 
 import numpy as np
+import trimesh
 import yaml
 from PIL import Image
 from trimesh.transformations import rotation_matrix, translation_matrix
@@ -27,27 +28,62 @@ def define_inventory(**kwargs):
     joint = kwargs["joint_length"]
     face = kwargs["face_length"]
     # Verified local OOMP records. The Ø14 washer is a project-specified dimension.
-    definitions = [
-        ("frame","Plate",1,"assembled_frame();",None),
-        ("rotor","Disc",1,"assembled_disc();",None),
-        ("upper","Upper housing",count,"clamp_half();",None),
-        ("lower","Lower housing",count,"clamp_half(lower=true);",None),
-        ("bearing","606 bearing",3*count,"roller();","hardware_bearing_600_series_606_size_6_mm_id_17_mm_od_6_mm_depth"),
-        ("washer","M6 washer Ø14",4*count,"interface_washer();",None),
-        ("face_bolt",f"M6 × {face:g} hex bolt",2*count,"face_axle_bolt();",f"hardware_set_screw_m6_{face:g}_mm_length"),
-        ("joint_bolt",f"M6 × {joint:g} hex bolt",3*count,"m6_bolt();",f"hardware_set_screw_m6_{joint:g}_mm_length"),
-        ("nut","M6 nut",5*count,"m6_nut();","hardware_nut_m6"),
-    ]
-    parts = {}
-    for key, name, quantity, entry, identity in definitions:
-        part = {
-            "key": key,
-            "name": name,
-            "quantity": quantity,
-            "entry": entry,
-            "id": identity or (kwargs["part_id"]+"/"+key if key!="washer" else "M6 ID6 OD14 thickness1.5 mm"),
-        }
-        if identity:
+    parts = {
+        "frame": {
+            "name": "Plate",
+            "quantity": 1,
+            "entry": "assembled_frame();",
+        },
+        "rotor": {
+            "name": "Disc",
+            "quantity": 1,
+            "entry": "assembled_disc();",
+        },
+        "upper": {
+            "name": "Upper housing",
+            "quantity": count,
+            "entry": "clamp_half();",
+        },
+        "lower": {
+            "name": "Lower housing",
+            "quantity": count,
+            "entry": "clamp_half(lower=true);",
+        },
+        "bearing": {
+            "name": "606 bearing",
+            "quantity": 3*count,
+            "entry": "roller();",
+            "id": "hardware_bearing_600_series_606_size_6_mm_id_17_mm_od_6_mm_depth",
+        },
+        "washer": {
+            "name": "M6 washer Ø14",
+            "quantity": 4*count,
+            "entry": "interface_washer();",
+            "id": "M6 ID6 OD14 thickness1.5 mm",
+        },
+        "face_bolt": {
+            "name": f"M6 × {face:g} hex bolt",
+            "quantity": 2*count,
+            "entry": "face_axle_bolt();",
+            "id": f"hardware_set_screw_m6_{face:g}_mm_length",
+        },
+        "joint_bolt": {
+            "name": f"M6 × {joint:g} hex bolt",
+            "quantity": 3*count,
+            "entry": "m6_bolt();",
+            "id": f"hardware_set_screw_m6_{joint:g}_mm_length",
+        },
+        "nut": {
+            "name": "M6 nut",
+            "quantity": 5*count,
+            "entry": "m6_nut();",
+            "id": "hardware_nut_m6",
+        },
+    }
+    for key, part in parts.items():
+        part["key"] = key
+        identity = part.setdefault("id",kwargs["part_id"]+"/"+key)
+        if identity.startswith("hardware_"):
             from oomp import hex_to_base36
             digest = hashlib.md5(identity.encode()).hexdigest()
             code = hex_to_base36(digest[:6])
@@ -58,7 +94,6 @@ def define_inventory(**kwargs):
                 "short_label": "oom.lt/a/"+code,
                 "identity_source": f"https://github.com/oomlout/{repo}/tree/main/parts/{identity}",
             })
-        parts[key] = part
     return parts
 
 
@@ -123,6 +158,12 @@ def publish(**kwargs):
     folder = kwargs["folder"]
     record = kwargs["record"]
     p = get_parameters(geometry=record["oobb_details"])
+    source = (folder/"true.scad").read_text(encoding="utf-8")
+    for key, value in p.items():
+        if f"{key} = {json.dumps(value,allow_nan=False)};" not in source:
+            raise ValueError(f"Rebuild {record['id']} with python working.py before publishing changed {key}")
+    if (ROOT/"turret.scad").read_text(encoding="utf-8") not in source:
+        raise ValueError("Rebuild the modified turret CAD before publishing the assembly")
     parts = define_inventory(guide_count=len(p["station_angles"]),joint_length=p["joint_length"],
                              face_length=p["face_bolt_length"],part_id=record["id"])
     output = folder/"assembly"
@@ -134,6 +175,17 @@ def publish(**kwargs):
             (stage/(key+".scad")).write_text(f"use <{(folder/'true.scad').as_posix()}>;\n$fn=96;\n{part['entry']}\n")
             export_mesh(executable=kwargs["openscad"],staging=stage,name=key)
         items = assembly_instances(parameters=p,stage=stage)
+        printed = ("frame","rotor","upper","lower")
+        expected = []
+        for key in printed:
+            mesh = trimesh.load_mesh(stage/(key+".stl"))
+            expected.extend([mesh.volume]*parts[key]["quantity"])
+        bodies = trimesh.load_mesh(folder/"3dpr.stl").split(only_watertight=False,repair=False)
+        actual = [body.volume for body in bodies]
+        if len(actual)!=len(expected) or not all(body.is_volume for body in bodies):
+            raise ValueError("The print layout must contain one closed mesh for each printed item")
+        if not np.allclose(sorted(actual),sorted(expected),atol=.015,rtol=1e-6):
+            raise ValueError("Rebuild the print layout before publishing the changed assembly")
         if Counter(item["key"] for item in items) != {k:v["quantity"] for k,v in parts.items()}:
             raise ValueError("Assembly poses disagree with the hardware and printed inventory")
         views = []
@@ -234,9 +286,21 @@ def publish(**kwargs):
         "printed_keys": ["frame","rotor","upper","lower"],
         "physical_item_count": len(items),
         "print_layout_sha256": hashlib.sha256((folder/"3dpr.stl").read_bytes()).hexdigest(),
+        "cad_sha256": hashlib.sha256((folder/"true.scad").read_bytes()).hexdigest(),
+        "logo_source_sha256": hashlib.sha256((ROOT/"presentation/oomlout-LOGO-unshaded-vector.svg").read_bytes()).hexdigest(),
     }
     assembly_booklet.publish(output=output,data=data)
     assembly_booklet.review_outputs(output=output,data=data)
+    publish_assets(folder=folder,record=record,data=data)
+
+
+def publish_assets(**kwargs):
+    folder = kwargs["folder"]
+    record = kwargs["record"]
+    data = kwargs["data"]
+    output = folder/"assembly"
+    raw = output/"render"/"raw"
+    parts = data["parts"]
     assembly_viewer.publish(output=output,data=data)
     with (output/"parts.csv").open("w",encoding="utf-8",newline="") as stream:
         writer = csv.DictWriter(stream,["key","name","id","quantity","identity_source","short_url"],extrasaction="ignore")
@@ -247,7 +311,20 @@ def publish(**kwargs):
             sheet = Image.new("RGB",image.size,"#f7f6f1")
             sheet.paste(image,mask=image.getchannel("A"))
             sheet.save(folder/(target+".png"))
-    write_part_readme(folder=folder,title=title,record=record,steps=steps,parts=parts)
+    write_part_readme(folder=folder,title=data["configuration_title"],record=record,steps=data["steps"],parts=parts)
+
+
+def write_readme(**kwargs):
+    path = kwargs["path"]
+    start = "<!-- oobb-presentation:start -->"
+    end = "<!-- oobb-presentation:end -->"
+    block = start+"\n"+kwargs["text"].strip()+"\n"+end
+    old = path.read_text(encoding="utf-8") if path.exists() else ""
+    if start in old and end in old:
+        before, generated = old.split(start,1)
+        _, after = generated.split(end,1)
+        block = before+block+after
+    path.write_text(block.rstrip()+"\n",encoding="utf-8")
 
 
 def write_part_readme(**kwargs):
@@ -277,7 +354,7 @@ AI-generated CAD illustrations and instructions. Physical fit is unverified.
 
 ## Details
 
-The 6 mm frame and disc have a {g['turret_diameter']*15} mm usable centre. Exposed frame edges and housing edges have a 1.5 mm radius. Flat lands support the housings. The lower housing captures all three vertical nuts.
+The 6 mm frame and disc have a {g['turret_diameter']*15} mm usable centre. The disc carries M6 holes on the 15 mm grid and M3 holes on the 7.5 mm half-grid. The outer bearing track stays solid. Exposed frame edges and housing edges have a 1.5 mm radius. Flat lands support the housings. The lower housing captures all three vertical nuts.
 
 ![Underside showing the recessed M6 nuts](underside.png)
 
@@ -299,7 +376,7 @@ The first four illustrations show one guide. Repeat for all four stations. The p
 
 {instructions}
 """
-    (folder/"README.md").write_text(text,encoding="utf-8")
+    write_readme(path=folder/"README.md",text=text)
 
 
 def main(**kwargs):
@@ -318,18 +395,23 @@ def main(**kwargs):
 def write_catalogue():
     records = sorted(catalogue_records(),key=lambda p:int(p.parent.name.split("_")[3]))
     rows = []
+    sizes = []
     for path in records:
         part = yaml.safe_load(path.read_text(encoding="utf-8"))["oobb_details"]
         link = "parts/"+path.parent.name
+        sizes.append(f'- [{part["width"]} × {part["height"]}, Ø{part["turret_diameter"]} OOBB centre](../{link}/)')
         rows.append(f'| [{part["width"]} × {part["height"]}]({link}/) | Ø{part["turret_diameter"]*15} mm | [STL]({link}/3dpr.stl) | [Viewer]({link}/assembly/assembly_instructions.html) · [PDF]({link}/assembly/assembly_instructions.pdf) |')
     example = records[len(records)//2].parent.relative_to(ROOT).as_posix()
+    navigation = ROOT/"navigation_oobb"
+    navigation.mkdir(exist_ok=True)
+    (navigation/"README.md").write_text("# Choose a 6 mm turret\n\n"+"\n".join(sizes)+"\n",encoding="utf-8")
     text = f"""# OOBB turrets
 
 AI-generated CAD illustrations and instructions. Errors possible.
 
 ## Summary
 
-Three square frames on the 15 mm OOBB grid carry a rotating 6 mm disc. Four pairs of housings guide the disc on 606 bearings. The editable CAD and generated files are included for printing and modification.
+Three square frames on the 15 mm OOBB grid carry a rotating 6 mm disc with M6 mounting holes and an M3 half-grid. Four pairs of housings guide the disc on 606 bearings. The editable CAD and generated files are included for printing and modification.
 
 [![Assembled 9 × 9 turret]({example}/studio.png)]({example}/)
 
@@ -338,6 +420,8 @@ Three square frames on the 15 mm OOBB grid carry a rotating 6 mm disc. Four pair
 The exposed plate and housing edges have a 1.5 mm radius. Flat housing lands carry the clamping load. Each face roller runs on an M6 × 20 external-hex bolt. Three M6 × 40 bolts per station engage nuts recessed into the lower housing. Washers are M6 × Ø14 × 1.5 mm at the bearing-to-print interfaces.
 
 ## Parts
+
+[Browse by plate size](navigation_oobb/) · [Build and publishing instructions](presentation/README.md)
 
 | Frame | Usable centre | Full print | Assembly |
 |---|---|---|---|
@@ -349,7 +433,7 @@ Start with the [one-guide fit sample]({example}/guide_fit_sample.stl) to check n
 
 Run `python working.py` to populate the records and rebuild the drawings, print models, renders and assembly books. Run `python working.py --assembly-only` to republish from the current CAD. Run `python -m unittest discover -s tests` for the fit and mesh checks.
 """
-    (ROOT/"README.md").write_text(text,encoding="utf-8")
+    write_readme(path=ROOT/"README.md",text=text)
 
 
 if __name__ == "__main__":

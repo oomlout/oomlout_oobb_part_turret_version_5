@@ -52,6 +52,8 @@ module disc() {
     difference() {
         cylinder(r=disc_radius,h=depth,$fn=240);
         for (p=disc_holes) through_hole(p[0],p[1],mount_hole_d/2,depth);
+        for (p=disc_m3_holes)
+            translate([p.x,p.y,-eps]) scale([1,1,depth+2*eps]) disc_m3_bore();
     }
 }
 

@@ -10,9 +10,32 @@ import yaml
 
 from working_oomp_populate import catalogue_records
 from turret_cad import export_mesh, get_parameters
+from working_svg import get_disc_pattern
 
 
 class TurretMeshFitTests(unittest.TestCase):
+    def test_rotor_has_m3_through_holes_and_a_solid_running_track(self):
+        counts = {
+            3: 16,
+            5: 48,
+            7: 108,
+        }
+        for record in catalogue_records():
+            with self.subTest(part=record.parent.name):
+                g = yaml.safe_load(record.read_text(encoding="utf-8"))["oobb_details"]
+                pattern = get_disc_pattern(**g)
+                holes = pattern["m3_holes"]
+                self.assertEqual(len(holes),counts[g["turret_diameter"]])
+                self.assertFalse(set(holes).intersection(pattern["holes"]))
+                diameter = 2*g["housing"]["disc_radius_mm"]
+                solids = trimesh.load_mesh(record.with_name("3dpr.stl")).split()
+                disc = next(s for s in solids if abs(s.extents[0]-diameter)<.001)
+                self.assertEqual(disc.euler_number, 2-2*(len(holes)+len(pattern["holes"])))
+                self.assertFalse(disc.contains([(x,y,3) for x,y in holes]).any())
+                radius = g["disc_m3_hole_diameter_mm"]/2
+                self.assertEqual(disc.contains([(7.5+radius-.05,0,3),(7.5+radius+.05,0,3)]).tolist(),[False,True])
+                self.assertTrue(all((x*x+y*y)**.5+radius <= pattern["usable_radius"] for x,y in holes))
+
     def test_frame_roundover_leaves_flat_housing_lands(self):
         for record in catalogue_records():
             with self.subTest(part=record.parent.name):

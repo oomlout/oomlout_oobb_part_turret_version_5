@@ -71,6 +71,13 @@ def get_oobb_modules(**kwargs):
             "holes": False,
         },
         {
+            "module_name": "disc_m3_bore",
+            "shape": "oobb_hole",
+            "radius_name": "m3",
+            "mode": "3dpr",
+            "depth": 1,
+        },
+        {
             "module_name": "unit_bore",
             "shape": "oobb_hole",
             "radius": 1,
@@ -162,6 +169,7 @@ def get_parameters(**kwargs):
         "station_angles": layout["angles"],
         "frame_holes": frame_holes,
         "disc_holes": layout["holes"],
+        "disc_m3_holes": layout["m3_holes"],
         "disc_radius": housing["disc_radius_mm"],
         "opening_radius": housing["opening_radius_mm"],
         "frame_opening": [[round(x,6),round(y,6)] for x,y in list(opening.exterior.coords)[:-1]],

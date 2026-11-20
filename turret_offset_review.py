@@ -382,6 +382,8 @@ def draw_offset_review(**kwargs):
     plan.add_patch(Circle((0,0),layout["bolt_sweep"],fill=False,ec=ACCENT,ls="--"))
     for x,y in layout["holes"]:
         plan.add_patch(Circle((x,y),hole,fc=PAPER,ec=INK,lw=.65))
+    for x,y in layout["m3_holes"]:
+        plan.add_patch(Circle((x,y),kwargs["disc_m3_hole_diameter_mm"]/2,fc=PAPER,ec=INK,lw=.55))
     for station in layout["stations"]:
         tr = Affine2D().rotate_deg(station["angle"]) + plan.transData
         if not layout.get("circular_pocket"):

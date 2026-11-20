@@ -51,79 +51,79 @@
   },
   "parts": {
     "frame": {
-      "key": "frame",
       "name": "Plate",
       "quantity": 1,
       "entry": "assembled_frame();",
+      "key": "frame",
       "id": "oobb_part_turret_11_width_11_height_6_depth_7_turret_diameter_606_bearing_4_number_of_guides/frame"
     },
     "rotor": {
-      "key": "rotor",
       "name": "Disc",
       "quantity": 1,
       "entry": "assembled_disc();",
+      "key": "rotor",
       "id": "oobb_part_turret_11_width_11_height_6_depth_7_turret_diameter_606_bearing_4_number_of_guides/rotor"
     },
     "upper": {
-      "key": "upper",
       "name": "Upper housing",
       "quantity": 4,
       "entry": "clamp_half();",
+      "key": "upper",
       "id": "oobb_part_turret_11_width_11_height_6_depth_7_turret_diameter_606_bearing_4_number_of_guides/upper"
     },
     "lower": {
-      "key": "lower",
       "name": "Lower housing",
       "quantity": 4,
       "entry": "clamp_half(lower=true);",
+      "key": "lower",
       "id": "oobb_part_turret_11_width_11_height_6_depth_7_turret_diameter_606_bearing_4_number_of_guides/lower"
     },
     "bearing": {
-      "key": "bearing",
       "name": "606 bearing",
       "quantity": 12,
       "entry": "roller();",
       "id": "hardware_bearing_600_series_606_size_6_mm_id_17_mm_od_6_mm_depth",
+      "key": "bearing",
       "md5_6_alpha": "6jee9",
       "short_url": "https://oom.lt/a/6jee9",
       "short_label": "oom.lt/a/6jee9",
       "identity_source": "https://github.com/oomlout/oomp_bearing_version_5/tree/main/parts/hardware_bearing_600_series_606_size_6_mm_id_17_mm_od_6_mm_depth"
     },
     "washer": {
-      "key": "washer",
       "name": "M6 washer \u00d814",
       "quantity": 16,
       "entry": "interface_washer();",
-      "id": "M6 ID6 OD14 thickness1.5 mm"
+      "id": "M6 ID6 OD14 thickness1.5 mm",
+      "key": "washer"
     },
     "face_bolt": {
-      "key": "face_bolt",
       "name": "M6 \u00d7 20 hex bolt",
       "quantity": 8,
       "entry": "face_axle_bolt();",
       "id": "hardware_set_screw_m6_20_mm_length",
+      "key": "face_bolt",
       "md5_6_alpha": "7vmgh",
       "short_url": "https://oom.lt/a/7vmgh",
       "short_label": "oom.lt/a/7vmgh",
       "identity_source": "https://github.com/oomlout/oomp_hardware_bolt_version_5/tree/main/parts/hardware_set_screw_m6_20_mm_length"
     },
     "joint_bolt": {
-      "key": "joint_bolt",
       "name": "M6 \u00d7 40 hex bolt",
       "quantity": 12,
       "entry": "m6_bolt();",
       "id": "hardware_set_screw_m6_40_mm_length",
+      "key": "joint_bolt",
       "md5_6_alpha": "8jit6",
       "short_url": "https://oom.lt/a/8jit6",
       "short_label": "oom.lt/a/8jit6",
       "identity_source": "https://github.com/oomlout/oomp_hardware_bolt_version_5/tree/main/parts/hardware_set_screw_m6_40_mm_length"
     },
     "nut": {
-      "key": "nut",
       "name": "M6 nut",
       "quantity": 20,
       "entry": "m6_nut();",
       "id": "hardware_nut_m6",
+      "key": "nut",
       "md5_6_alpha": "hcps",
       "short_url": "https://oom.lt/a/hcps",
       "short_label": "oom.lt/a/hcps",
@@ -214,85 +214,87 @@
     "lower"
   ],
   "physical_item_count": 78,
-  "print_layout_sha256": "35b165d89b91b19c594ec2e3ee8bd1b7f7b3f49e0481d2590bcc9e4a820fdca5",
+  "print_layout_sha256": "f20ed128616e51fb4e0e232a5bc434f30969ed865ded0b35b6ca9b46a3bfe3bd",
+  "cad_sha256": "760a67c9429a290656ddd1c1c6637c60d695c85bdb91cb49263b5dc2f709e3e0",
+  "logo_source_sha256": "72918ba326599a1e6ae495ae4cabb51cc7a462035d35ee30de984229e30d9d67",
   "summary_inventory": {
     "printed": [
       {
-        "key": "frame",
         "name": "Plate",
         "quantity": 1,
         "entry": "assembled_frame();",
+        "key": "frame",
         "id": "oobb_part_turret_11_width_11_height_6_depth_7_turret_diameter_606_bearing_4_number_of_guides/frame"
       },
       {
-        "key": "rotor",
         "name": "Disc",
         "quantity": 1,
         "entry": "assembled_disc();",
+        "key": "rotor",
         "id": "oobb_part_turret_11_width_11_height_6_depth_7_turret_diameter_606_bearing_4_number_of_guides/rotor"
       },
       {
-        "key": "upper",
         "name": "Upper housing",
         "quantity": 4,
         "entry": "clamp_half();",
+        "key": "upper",
         "id": "oobb_part_turret_11_width_11_height_6_depth_7_turret_diameter_606_bearing_4_number_of_guides/upper"
       },
       {
-        "key": "lower",
         "name": "Lower housing",
         "quantity": 4,
         "entry": "clamp_half(lower=true);",
+        "key": "lower",
         "id": "oobb_part_turret_11_width_11_height_6_depth_7_turret_diameter_606_bearing_4_number_of_guides/lower"
       }
     ],
     "hardware": [
       {
-        "key": "bearing",
         "name": "606 bearing",
         "quantity": 12,
         "entry": "roller();",
         "id": "hardware_bearing_600_series_606_size_6_mm_id_17_mm_od_6_mm_depth",
+        "key": "bearing",
         "md5_6_alpha": "6jee9",
         "short_url": "https://oom.lt/a/6jee9",
         "short_label": "oom.lt/a/6jee9",
         "identity_source": "https://github.com/oomlout/oomp_bearing_version_5/tree/main/parts/hardware_bearing_600_series_606_size_6_mm_id_17_mm_od_6_mm_depth"
       },
       {
-        "key": "washer",
         "name": "M6 washer \u00d814",
         "quantity": 16,
         "entry": "interface_washer();",
-        "id": "M6 ID6 OD14 thickness1.5 mm"
+        "id": "M6 ID6 OD14 thickness1.5 mm",
+        "key": "washer"
       },
       {
-        "key": "face_bolt",
         "name": "M6 \u00d7 20 hex bolt",
         "quantity": 8,
         "entry": "face_axle_bolt();",
         "id": "hardware_set_screw_m6_20_mm_length",
+        "key": "face_bolt",
         "md5_6_alpha": "7vmgh",
         "short_url": "https://oom.lt/a/7vmgh",
         "short_label": "oom.lt/a/7vmgh",
         "identity_source": "https://github.com/oomlout/oomp_hardware_bolt_version_5/tree/main/parts/hardware_set_screw_m6_20_mm_length"
       },
       {
-        "key": "joint_bolt",
         "name": "M6 \u00d7 40 hex bolt",
         "quantity": 12,
         "entry": "m6_bolt();",
         "id": "hardware_set_screw_m6_40_mm_length",
+        "key": "joint_bolt",
         "md5_6_alpha": "8jit6",
         "short_url": "https://oom.lt/a/8jit6",
         "short_label": "oom.lt/a/8jit6",
         "identity_source": "https://github.com/oomlout/oomp_hardware_bolt_version_5/tree/main/parts/hardware_set_screw_m6_40_mm_length"
       },
       {
-        "key": "nut",
         "name": "M6 nut",
         "quantity": 20,
         "entry": "m6_nut();",
         "id": "hardware_nut_m6",
+        "key": "nut",
         "md5_6_alpha": "hcps",
         "short_url": "https://oom.lt/a/hcps",
         "short_label": "oom.lt/a/hcps",
