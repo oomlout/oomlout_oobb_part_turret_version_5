@@ -1,0 +1,333 @@
+{
+  "configuration_title": "9 \u00d7 9 OOBB turret",
+  "style": {
+    "page_mm": [
+      297,
+      210
+    ],
+    "columns": 2,
+    "rows": 2,
+    "margin_mm": 6,
+    "gutter_mm": 4,
+    "border": "000000",
+    "border_radius_mm": 3,
+    "border_width_pt": 3,
+    "component_border_width_pt": 1.1,
+    "thumbnail_height_mm": 8.5,
+    "quantity_shift_mm": 1,
+    "font_body_pt": 7,
+    "font_code_pt": 6.4,
+    "font_url_prefix_pt": 4.8,
+    "quantity_pt": 5.8
+  },
+  "book": {
+    "cover_title": "9 \u00d7 9 OOBB turret",
+    "cover_subtitle": "Four 606 guides / \u00d875 mm usable centre",
+    "project_name": "oomlout_oobb_part_turret_version_5",
+    "project_url": "https://github.com/oomlout/oomlout_oobb_part_turret_version_5",
+    "logo_svg": "presentation/oomlout-LOGO-unshaded-vector.svg",
+    "logo_symbol_subpaths": 3,
+    "details_title": "Fitting the guides",
+    "details": [
+      "134 mm square frame and \u00d895 mm disc, both 6 mm thick.",
+      "Steps 1\u20134 show one guide pair. Repeat at all four stations. Quantities cover the complete turret.",
+      "1. Set out the four guide pairs. Each lower housing has three hex recesses on its outside face.",
+      "2. Press one M6 nut into the side opening of every upper and lower housing.",
+      "3. Pass an M6 \u00d7 20 hex bolt through each 606 bearing and one washer. Screw it into the side nut. Keep the washer against the printed housing.",
+      "4. Press three M6 nuts into the underside of each lower housing. The centre nut can slide along its pocket for edge adjustment.",
+      "5. Set the frame on the four lower housings with their mounting holes aligned. Centre the disc in the opening with its underside on the face rollers.",
+      "6. At each station, sandwich one 606 edge bearing between two washers. Centre the washers over the axle slot and lower the upper housing onto the flat frame land.",
+      "7. Install three M6 \u00d7 40 hex bolts from above at each station. The two outer bolts join the housings to the frame. Leave the edge-axle bolt loose for adjustment.",
+      "8. Bring each edge roller into light contact. Tighten the edge axles and turn the disc through a full revolution. Check that the rollers turn freely and the housings sit flat.",
+      "AI-generated CAD illustrations and instructions. Physical fit has yet to be tested."
+    ],
+    "summary_title": "Printed parts",
+    "hardware_title": "Purchased hardware",
+    "summary_view": "book_cover",
+    "signature_pages": 4,
+    "summary_step": true,
+    "viewer_start": "page-03",
+    "viewer_layout": "a4-landscape-four-step"
+  },
+  "parts": {
+    "frame": {
+      "key": "frame",
+      "name": "Plate",
+      "quantity": 1,
+      "entry": "assembled_frame();",
+      "id": "oobb_part_turret_9_width_9_height_6_depth_5_turret_diameter_606_bearing_4_number_of_guides/frame"
+    },
+    "rotor": {
+      "key": "rotor",
+      "name": "Disc",
+      "quantity": 1,
+      "entry": "assembled_disc();",
+      "id": "oobb_part_turret_9_width_9_height_6_depth_5_turret_diameter_606_bearing_4_number_of_guides/rotor"
+    },
+    "upper": {
+      "key": "upper",
+      "name": "Upper housing",
+      "quantity": 4,
+      "entry": "clamp_half();",
+      "id": "oobb_part_turret_9_width_9_height_6_depth_5_turret_diameter_606_bearing_4_number_of_guides/upper"
+    },
+    "lower": {
+      "key": "lower",
+      "name": "Lower housing",
+      "quantity": 4,
+      "entry": "clamp_half(lower=true);",
+      "id": "oobb_part_turret_9_width_9_height_6_depth_5_turret_diameter_606_bearing_4_number_of_guides/lower"
+    },
+    "bearing": {
+      "key": "bearing",
+      "name": "606 bearing",
+      "quantity": 12,
+      "entry": "roller();",
+      "id": "hardware_bearing_600_series_606_size_6_mm_id_17_mm_od_6_mm_depth",
+      "md5_6_alpha": "6jee9",
+      "short_url": "https://oom.lt/a/6jee9",
+      "short_label": "oom.lt/a/6jee9",
+      "identity_source": "https://github.com/oomlout/oomp_bearing_version_5/tree/main/parts/hardware_bearing_600_series_606_size_6_mm_id_17_mm_od_6_mm_depth"
+    },
+    "washer": {
+      "key": "washer",
+      "name": "M6 washer \u00d814",
+      "quantity": 16,
+      "entry": "interface_washer();",
+      "id": "M6 ID6 OD14 thickness1.5 mm"
+    },
+    "face_bolt": {
+      "key": "face_bolt",
+      "name": "M6 \u00d7 20 hex bolt",
+      "quantity": 8,
+      "entry": "face_axle_bolt();",
+      "id": "hardware_set_screw_m6_20_mm_length",
+      "md5_6_alpha": "7vmgh",
+      "short_url": "https://oom.lt/a/7vmgh",
+      "short_label": "oom.lt/a/7vmgh",
+      "identity_source": "https://github.com/oomlout/oomp_hardware_bolt_version_5/tree/main/parts/hardware_set_screw_m6_20_mm_length"
+    },
+    "joint_bolt": {
+      "key": "joint_bolt",
+      "name": "M6 \u00d7 40 hex bolt",
+      "quantity": 12,
+      "entry": "m6_bolt();",
+      "id": "hardware_set_screw_m6_40_mm_length",
+      "md5_6_alpha": "8jit6",
+      "short_url": "https://oom.lt/a/8jit6",
+      "short_label": "oom.lt/a/8jit6",
+      "identity_source": "https://github.com/oomlout/oomp_hardware_bolt_version_5/tree/main/parts/hardware_set_screw_m6_40_mm_length"
+    },
+    "nut": {
+      "key": "nut",
+      "name": "M6 nut",
+      "quantity": 20,
+      "entry": "m6_nut();",
+      "id": "hardware_nut_m6",
+      "md5_6_alpha": "hcps",
+      "short_url": "https://oom.lt/a/hcps",
+      "short_label": "oom.lt/a/hcps",
+      "identity_source": "https://github.com/oomlout/oomp_hardware_bolt_version_5/tree/main/parts/hardware_nut_m6"
+    }
+  },
+  "steps": [
+    {
+      "action": "Set out the four guide pairs. Each lower housing has three hex recesses on its outside face.",
+      "title": "Identify the housings",
+      "key": "step_01",
+      "number": 1,
+      "loose_parts": {
+        "upper": 4,
+        "lower": 4
+      }
+    },
+    {
+      "action": "Press one M6 nut into the side opening of every upper and lower housing.",
+      "title": "Load the face-axle nuts",
+      "key": "step_02",
+      "number": 2,
+      "loose_parts": {
+        "nut": 8
+      }
+    },
+    {
+      "action": "Pass an M6 \u00d7 20 hex bolt through each 606 bearing and one washer. Screw it into the side nut. Keep the washer against the printed housing.",
+      "title": "Fit the face rollers",
+      "key": "step_03",
+      "number": 3,
+      "loose_parts": {
+        "bearing": 8,
+        "washer": 8,
+        "face_bolt": 8
+      }
+    },
+    {
+      "action": "Press three M6 nuts into the underside of each lower housing. The centre nut can slide along its pocket for edge adjustment.",
+      "title": "Load the lower housings",
+      "key": "step_04",
+      "number": 4,
+      "loose_parts": {
+        "nut": 12
+      }
+    },
+    {
+      "action": "Set the frame on the four lower housings with their mounting holes aligned. Centre the disc in the opening with its underside on the face rollers.",
+      "title": "Seat the frame and disc",
+      "key": "step_05",
+      "number": 5,
+      "loose_parts": {
+        "frame": 1,
+        "rotor": 1
+      }
+    },
+    {
+      "action": "At each station, sandwich one 606 edge bearing between two washers. Centre the washers over the axle slot and lower the upper housing onto the flat frame land.",
+      "title": "Stack the edge rollers",
+      "key": "step_06",
+      "number": 6,
+      "loose_parts": {
+        "bearing": 4,
+        "washer": 8
+      }
+    },
+    {
+      "action": "Install three M6 \u00d7 40 hex bolts from above at each station. The two outer bolts join the housings to the frame. Leave the edge-axle bolt loose for adjustment.",
+      "title": "Join the guides",
+      "key": "step_07",
+      "number": 7,
+      "loose_parts": {
+        "joint_bolt": 12
+      }
+    },
+    {
+      "action": "Bring each edge roller into light contact. Tighten the edge axles and turn the disc through a full revolution. Check that the rollers turn freely and the housings sit flat.",
+      "title": "Set the running fit",
+      "key": "step_08",
+      "number": 8,
+      "loose_parts": {}
+    }
+  ],
+  "printed_keys": [
+    "frame",
+    "rotor",
+    "upper",
+    "lower"
+  ],
+  "physical_item_count": 78,
+  "print_layout_sha256": "42d3bb35171487069e5d0e8b9ebbdc9dcbe12a21be192f2cbf94392352487da7",
+  "summary_inventory": {
+    "printed": [
+      {
+        "key": "frame",
+        "name": "Plate",
+        "quantity": 1,
+        "entry": "assembled_frame();",
+        "id": "oobb_part_turret_9_width_9_height_6_depth_5_turret_diameter_606_bearing_4_number_of_guides/frame"
+      },
+      {
+        "key": "rotor",
+        "name": "Disc",
+        "quantity": 1,
+        "entry": "assembled_disc();",
+        "id": "oobb_part_turret_9_width_9_height_6_depth_5_turret_diameter_606_bearing_4_number_of_guides/rotor"
+      },
+      {
+        "key": "upper",
+        "name": "Upper housing",
+        "quantity": 4,
+        "entry": "clamp_half();",
+        "id": "oobb_part_turret_9_width_9_height_6_depth_5_turret_diameter_606_bearing_4_number_of_guides/upper"
+      },
+      {
+        "key": "lower",
+        "name": "Lower housing",
+        "quantity": 4,
+        "entry": "clamp_half(lower=true);",
+        "id": "oobb_part_turret_9_width_9_height_6_depth_5_turret_diameter_606_bearing_4_number_of_guides/lower"
+      }
+    ],
+    "hardware": [
+      {
+        "key": "bearing",
+        "name": "606 bearing",
+        "quantity": 12,
+        "entry": "roller();",
+        "id": "hardware_bearing_600_series_606_size_6_mm_id_17_mm_od_6_mm_depth",
+        "md5_6_alpha": "6jee9",
+        "short_url": "https://oom.lt/a/6jee9",
+        "short_label": "oom.lt/a/6jee9",
+        "identity_source": "https://github.com/oomlout/oomp_bearing_version_5/tree/main/parts/hardware_bearing_600_series_606_size_6_mm_id_17_mm_od_6_mm_depth"
+      },
+      {
+        "key": "washer",
+        "name": "M6 washer \u00d814",
+        "quantity": 16,
+        "entry": "interface_washer();",
+        "id": "M6 ID6 OD14 thickness1.5 mm"
+      },
+      {
+        "key": "face_bolt",
+        "name": "M6 \u00d7 20 hex bolt",
+        "quantity": 8,
+        "entry": "face_axle_bolt();",
+        "id": "hardware_set_screw_m6_20_mm_length",
+        "md5_6_alpha": "7vmgh",
+        "short_url": "https://oom.lt/a/7vmgh",
+        "short_label": "oom.lt/a/7vmgh",
+        "identity_source": "https://github.com/oomlout/oomp_hardware_bolt_version_5/tree/main/parts/hardware_set_screw_m6_20_mm_length"
+      },
+      {
+        "key": "joint_bolt",
+        "name": "M6 \u00d7 40 hex bolt",
+        "quantity": 12,
+        "entry": "m6_bolt();",
+        "id": "hardware_set_screw_m6_40_mm_length",
+        "md5_6_alpha": "8jit6",
+        "short_url": "https://oom.lt/a/8jit6",
+        "short_label": "oom.lt/a/8jit6",
+        "identity_source": "https://github.com/oomlout/oomp_hardware_bolt_version_5/tree/main/parts/hardware_set_screw_m6_40_mm_length"
+      },
+      {
+        "key": "nut",
+        "name": "M6 nut",
+        "quantity": 20,
+        "entry": "m6_nut();",
+        "id": "hardware_nut_m6",
+        "md5_6_alpha": "hcps",
+        "short_url": "https://oom.lt/a/hcps",
+        "short_label": "oom.lt/a/hcps",
+        "identity_source": "https://github.com/oomlout/oomp_hardware_bolt_version_5/tree/main/parts/hardware_nut_m6"
+      }
+    ]
+  },
+  "book_pages": [
+    {
+      "kind": "cover"
+    },
+    {
+      "kind": "details"
+    },
+    {
+      "kind": "instructions",
+      "group": 0
+    },
+    {
+      "kind": "instructions",
+      "group": 1
+    },
+    {
+      "kind": "summary",
+      "number": 9
+    },
+    {
+      "kind": "spacer"
+    },
+    {
+      "kind": "parts"
+    },
+    {
+      "kind": "back"
+    }
+  ],
+  "printed_piece_count": 10
+}

@@ -1,0 +1,134 @@
+assembly_steps:
+- action: Set out the four guide pairs. Each lower housing has three hex recesses
+    on its outside face.
+  title: Identify the housings
+- action: Press one M6 nut into the side opening of every upper and lower housing.
+  title: Load the face-axle nuts
+- action: Pass an M6 × 20 hex bolt through each 606 bearing and one washer. Screw
+    it into the side nut. Keep the washer against the printed housing.
+  title: Fit the face rollers
+- action: Press three M6 nuts into the underside of each lower housing. The centre
+    nut can slide along its pocket for edge adjustment.
+  title: Load the lower housings
+- action: Set the frame on the four lower housings with their mounting holes aligned.
+    Centre the disc in the opening with its underside on the face rollers.
+  title: Seat the frame and disc
+- action: At each station, sandwich one 606 edge bearing between two washers. Centre
+    the washers over the axle slot and lower the upper housing onto the flat frame
+    land.
+  title: Stack the edge rollers
+- action: Install three M6 × 40 hex bolts from above at each station. The two outer
+    bolts join the housings to the frame. Leave the edge-axle bolt loose for adjustment.
+  title: Join the guides
+- action: Bring each edge roller into light contact. Tighten the edge axles and turn
+    the disc through a full revolution. Check that the rollers turn freely and the
+    housings sit flat.
+  title: Set the running fit
+oobb_details:
+  bearing: '606'
+  depth: 6
+  disc_to_frame_gap_mm: 1
+  guide:
+    bolt_row_x_mm: 8.5
+    bore_mm: 6
+    clamp_bolt_length_mm: 40
+    clamp_half_width_mm: 26
+    clamp_inner_x_mm: -16
+    clamp_outer_x_mm: 21
+    common_clamp:
+      boss_x_mm: 4.5
+      corner_radius_mm: 1.5
+      edge_pocket_clearance_mm: 0.5
+      edge_y_mm: 19.5
+      end_margin_mm: 8
+      horizontal_bolt_bore_mm: 6.4
+      lower_nut_lug_radius_mm: 8
+      mount_x_mm: 12
+      mount_y_mm:
+      - -15
+      - 37.5
+      nut_pocket_start_mm: 12
+      outer_edge_radius_mm: 1.5
+      outer_x_mm: 19.5
+      pocket_blend_radius_mm: 1
+      slot_lug_radius_mm: 5.5
+      slot_width_mm: 6.5
+      slot_x_mm:
+      - 3.67
+      - 5.67
+      washer_pocket_clearance_mm: 0.25
+    cutout_half_width_mm: 10
+    cutout_inner_x_mm: -6
+    cutout_outer_x_mm: 19
+    face_axle_x_mm: -8
+    mount_y_mm:
+    - -18
+    - 18
+    nut_thickness_mm: 5
+    od_mm: 17
+    thread_beyond_nut_mm: 1
+    washer_id_mm: 6
+    washer_od_mm: 14
+    washer_thickness_mm: 1.5
+    width_mm: 6
+  guide_angles_by_side:
+    east:
+    - 0
+    north:
+    - 90
+    south:
+    - 270
+    west:
+    - 180
+  guide_clearance_from_sweep_mm: 2
+  height: 11
+  housing:
+    boss_thickness_mm: 12
+    common_clamp: true
+    disc_radius_mm: 62.5
+    face_axle_radius_mm: 62.5
+    face_bolt:
+      diameter_mm: 6
+      head_diameter_mm: 11.54
+      head_height_mm: 4
+      length_mm: 20
+      style: external_hex
+    face_contact_mm: 3
+    face_relief_clearance_mm: 0.5
+    material_beyond_washer_mm: 1
+    opening_radius_mm: 63.5
+    station_rotation_deg: 0
+  m6_hole_diameter_mm: 6.5
+  number_of_guides: 4
+  oobb_type: turret
+  outer_bolt_envelope_diameter_mm: 11.54
+  pitch_mm: 15
+  plate_edge_radius_mm: 1.5
+  plate_edge_reduction_mm: 1
+  run_scad: true
+  run_solidcraft: false
+  turret_diameter: 7
+  width: 11
+oobb_type: turret
+plate_3dpr_contents:
+  bottom_clamp: 4
+  disc: 1
+  outer_plate: 1
+  top_clamp: 4
+svg_details:
+  svg_name: offset_housing_review
+taxonomy_1: oobb
+taxonomy_10: ''
+taxonomy_11: ''
+taxonomy_12: ''
+taxonomy_13: ''
+taxonomy_14: ''
+taxonomy_15: ''
+taxonomy_2: part
+taxonomy_3: turret
+taxonomy_4: 11_width
+taxonomy_5: 11_height
+taxonomy_6: 6_depth
+taxonomy_7: 7_turret_diameter
+taxonomy_8: 606_bearing
+taxonomy_9: 4_number_of_guides

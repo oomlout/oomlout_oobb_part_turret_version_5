@@ -1,0 +1,10 @@
+key,name,id,quantity,identity_source,short_url
+frame,Plate,oobb_part_turret_11_width_11_height_6_depth_7_turret_diameter_606_bearing_4_number_of_guides/frame,1,,
+rotor,Disc,oobb_part_turret_11_width_11_height_6_depth_7_turret_diameter_606_bearing_4_number_of_guides/rotor,1,,
+upper,Upper housing,oobb_part_turret_11_width_11_height_6_depth_7_turret_diameter_606_bearing_4_number_of_guides/upper,4,,
+lower,Lower housing,oobb_part_turret_11_width_11_height_6_depth_7_turret_diameter_606_bearing_4_number_of_guides/lower,4,,
+bearing,606 bearing,hardware_bearing_600_series_606_size_6_mm_id_17_mm_od_6_mm_depth,12,https://github.com/oomlout/oomp_bearing_version_5/tree/main/parts/hardware_bearing_600_series_606_size_6_mm_id_17_mm_od_6_mm_depth,https://oom.lt/a/6jee9
+washer,M6 washer Ø14,M6 ID6 OD14 thickness1.5 mm,16,,
+face_bolt,M6 × 20 hex bolt,hardware_set_screw_m6_20_mm_length,8,https://github.com/oomlout/oomp_hardware_bolt_version_5/tree/main/parts/hardware_set_screw_m6_20_mm_length,https://oom.lt/a/7vmgh
+joint_bolt,M6 × 40 hex bolt,hardware_set_screw_m6_40_mm_length,12,https://github.com/oomlout/oomp_hardware_bolt_version_5/tree/main/parts/hardware_set_screw_m6_40_mm_length,https://oom.lt/a/8jit6
+nut,M6 nut,hardware_nut_m6,20,https://github.com/oomlout/oomp_hardware_bolt_version_5/tree/main/parts/hardware_nut_m6,https://oom.lt/a/hcps
