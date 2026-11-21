@@ -199,7 +199,6 @@ def get_parameters(**kwargs):
         "boss_x": clamp["boss_x_mm"],
         "mount_x": clamp["mount_x_mm"],
         "mount_positions": clamp["mount_y_mm"],
-        "washer_pocket_clearance": clamp["washer_pocket_clearance_mm"],
         "edge_y": clamp["edge_y_mm"],
         "edge_axle_x": round(layout["axle_x"]-face, 6),
         "slot_ends": clamp["slot_x_mm"],
@@ -221,7 +220,7 @@ def export_mesh(**kwargs):
     mesh = staging / f"{name}.stl"
     if process.returncode or "ERROR:" in process.stderr or not mesh.exists() or mesh.stat().st_size <= 84:
         raise RuntimeError(f"OpenSCAD export failed for {name}\n{process.stderr}")
-    if name not in ("3dpr", "guide_fit_sample"):
+    if name not in ("3dpr", "guide_fit_sample", "guide_pair"):
         return
     # STL stores separate float32 triangles. Reconstruct the solid after that
     # quantization to discard zero-thickness seams at tangent fillets.
@@ -263,6 +262,7 @@ def build_turret(**kwargs):
             "3dpr": "print_layout();",
             "true": "assembly();",
             "guide_fit_sample": "fit_sample();",
+            "guide_pair": "guide_pair();",
             "guide_clearance": "slide = 0; // [-1:0.05:1]\nclearance_review(slide);",
         }
         for name, entry in models.items():
@@ -272,7 +272,7 @@ def build_turret(**kwargs):
                 contents = f"// {part['id']}\n{header}\n\n{native_modules}\n{recipe}\n\n{entry}\n"
             (staging / f"{name}.scad").write_text(contents, encoding="utf-8")
         if generate_stl:
-            for name in ("3dpr", "guide_fit_sample"):
+            for name in ("3dpr", "guide_fit_sample", "guide_pair"):
                 export_mesh(executable=executable, staging=staging, name=name)
         if render_preview:
             command = [executable, "--preview", "--viewall", "--autocenter", "--projection=o",

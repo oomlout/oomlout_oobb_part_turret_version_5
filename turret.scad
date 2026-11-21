@@ -95,10 +95,10 @@ module clamp_half(lower=false) {
             play = (slot_width-bearing_bore)/2;
             hull() for(x=[slot_ends[0]-play,slot_ends[1]+play]) captive_nut_cut(x,edge_y);
         }
-        // Recess only the moving washer envelope into the plate-facing surface.
-        if (washer_recess>0) hull() for (x=slot_ends)
-            translate([x,edge_y,-eps])
-                cylinder(r=washer_od/2+(slot_width-bearing_bore)/2+washer_pocket_clearance,h=washer_recess+eps);
+        // Continue the frame's 606 pocket up to the washer seat in each half.
+        // Its radius includes the bearing OD, slot travel, bolt play and running clearance.
+        if (washer_recess>0) translate([pocket_x,edge_y,-eps])
+            scale([pocket_radius,pocket_radius,washer_recess+eps]) unit_bore($fn=192);
         for (y=mount_positions) through_hole(mount_x,y,mount_hole_d/2,boss_height);
         hull() for (x=slot_ends) through_hole(x,edge_y,slot_width/2,boss_height);
         translate([boss_x-1,0,br]) rotate([0,90,0])
@@ -178,6 +178,11 @@ module upper_on_bed() {
 
 module lower_on_bed() {
     translate([boss_height,-clamp_y_min,clamp_outer_x]) mirror([1,0,0]) rotate([0,90,0]) clamp_half(lower=true);
+}
+
+module guide_pair() {
+    upper_on_bed();
+    translate([boss_height+print_gap,0,0]) lower_on_bed();
 }
 
 module print_layout() {

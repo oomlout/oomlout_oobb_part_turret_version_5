@@ -79,7 +79,7 @@ class TurretMeshFitTests(unittest.TestCase):
 
     def test_print_and_sample_bodies(self):
         for record in catalogue_records():
-            for model, count in (("3dpr",10),("guide_fit_sample",4)):
+            for model, count in (("3dpr",10),("guide_fit_sample",4),("guide_pair",2)):
                 with self.subTest(part=record.parent.name, model=model):
                     mesh = trimesh.load_mesh(record.with_name(f"{model}.stl"))
                     bodies = mesh.split(only_watertight=False)
@@ -87,6 +87,44 @@ class TurretMeshFitTests(unittest.TestCase):
                     for body in bodies:
                         self.assertTrue(body.is_volume)
                         self.assertAlmostEqual(body.bounds[0,2],0,places=5)
+
+    def test_edge_race_clears_both_printed_housings_through_full_travel(self):
+        for record in catalogue_records():
+            geometry = yaml.safe_load(record.read_text(encoding="utf-8"))["oobb_details"]
+            guide = geometry["guide"]
+            clamp = guide["common_clamp"]
+            params = get_parameters(geometry=geometry)
+            play = (clamp["slot_width_mm"]-guide["bore_mm"])/2
+            radius = guide["od_mm"]/2 + play + clamp["edge_pocket_clearance_mm"]
+            seat = (guide["width_mm"] - geometry["depth"])/2 + guide["washer_thickness_mm"]
+            # The convex hull represents every shaft position, including sideways play.
+            # Allow 0.005 mm for the polygonal representation of circular surfaces.
+            ends = []
+            for x in clamp["slot_x_mm"]:
+                cylinder = trimesh.creation.cylinder(radius=radius-.005,height=seat-.005,sections=192)
+                cylinder.apply_translation([x,clamp["edge_y_mm"],(seat-.005)/2])
+                ends.append(cylinder)
+            sweep = trimesh.util.concatenate(ends).convex_hull
+            pair = trimesh.load_mesh(record.with_name("guide_pair.stl")).split()
+            self.assertEqual(len(pair),2)
+            for index, half in enumerate(sorted(pair,key=lambda mesh:mesh.centroid[0])):
+                with self.subTest(part=record.parent.name,half=("upper","lower")[index]):
+                    sign = 1 if index==0 else -1
+                    mating_x = half.bounds[index,0]
+                    # Undo the layout's outboard-face-down printing orientation.
+                    half.apply_transform([
+                        [0,0,-1,params["clamp_outer_x"]],
+                        [0,1,0,params["clamp_y_min"]],
+                        [sign,0,0,-sign*mating_x],
+                        [0,0,0,1],
+                    ])
+                    overlap = trimesh.boolean.intersection([half,sweep],engine="manifold")
+                    self.assertLess(abs(overlap.volume),.0001)
+                    # The washer must still bear on a solid floor at both stops.
+                    low,high = clamp["slot_x_mm"]
+                    for stop in (low-play,high+play):
+                        probes = [(stop,clamp["edge_y_mm"]+4,seat+d) for d in (-.02,.02)]
+                        self.assertEqual(half.contains(probes).tolist(),[False,True])
 
     def test_nominal_assembly_intersections(self):
         executable = shutil.which("openscad.com") or shutil.which("openscad")

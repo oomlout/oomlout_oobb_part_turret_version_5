@@ -36,7 +36,7 @@
       "3. Pass an M6 \u00d7 20 hex bolt through each 606 bearing and one washer. Screw it into the side nut. Keep the washer against the printed housing.",
       "4. Press three M6 nuts into the underside of each lower housing. The centre nut can slide along its pocket for edge adjustment.",
       "5. Set the frame on the four lower housings with their mounting holes aligned. Centre the disc in the opening with its underside on the face rollers.",
-      "6. At each station, sandwich one 606 edge bearing between two washers. Centre the washers over the axle slot and lower the upper housing onto the flat frame land.",
+      "6. At each station, sandwich the 606 edge bearing between two washers. Seat the washers in the circular housing recesses, align the axle slot and close the upper housing onto the frame.",
       "7. Install three M6 \u00d7 40 hex bolts from above at each station. The two outer bolts join the housings to the frame. Leave the edge-axle bolt loose for adjustment.",
       "8. Bring each edge roller into light contact. Tighten the edge axles and turn the disc through a full revolution. Check that the rollers turn freely and the housings sit flat.",
       "AI-generated CAD illustrations and instructions. Physical fit has yet to be tested."
@@ -181,7 +181,7 @@
       }
     },
     {
-      "action": "At each station, sandwich one 606 edge bearing between two washers. Centre the washers over the axle slot and lower the upper housing onto the flat frame land.",
+      "action": "At each station, sandwich the 606 edge bearing between two washers. Seat the washers in the circular housing recesses, align the axle slot and close the upper housing onto the frame.",
       "title": "Stack the edge rollers",
       "key": "step_06",
       "number": 6,
@@ -214,8 +214,8 @@
     "lower"
   ],
   "physical_item_count": 78,
-  "print_layout_sha256": "738115104e8208490b549a4bdfbba730db77ec791200fe2cd3ba55b6ef0ddf55",
-  "cad_sha256": "b35fc5337b0cf1271cfbd503111be44466f3813a3a63bd1e4bd2ad5df5dd38e4",
+  "print_layout_sha256": "1814472ec8f4c3477d67766dc8e59da89df649b7f6282db0b3f29cb382a1fed9",
+  "cad_sha256": "17cc8e3e180f1dc88faa7b1ceee2ca7b280a1ef48ccafb85b1f611931c81a355",
   "logo_source_sha256": "72918ba326599a1e6ae495ae4cabb51cc7a462035d35ee30de984229e30d9d67",
   "summary_inventory": {
     "printed": [

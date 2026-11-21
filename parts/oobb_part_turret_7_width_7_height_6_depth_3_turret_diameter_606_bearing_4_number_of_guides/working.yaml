@@ -13,9 +13,9 @@ assembly_steps:
 - action: Set the frame on the four lower housings with their mounting holes aligned.
     Centre the disc in the opening with its underside on the face rollers.
   title: Seat the frame and disc
-- action: At each station, sandwich one 606 edge bearing between two washers. Centre
-    the washers over the axle slot and lower the upper housing onto the flat frame
-    land.
+- action: At each station, sandwich the 606 edge bearing between two washers. Seat
+    the washers in the circular housing recesses, align the axle slot and close the
+    upper housing onto the frame.
   title: Stack the edge rollers
 - action: Install three M6 × 40 hex bolts from above at each station. The two outer
     bolts join the housings to the frame. Leave the edge-axle bolt loose for adjustment.
@@ -57,7 +57,6 @@ oobb_details:
       slot_x_mm:
       - 3.67
       - 5.67
-      washer_pocket_clearance_mm: 0.25
     cutout_half_width_mm: 10
     cutout_inner_x_mm: -6
     cutout_outer_x_mm: 19

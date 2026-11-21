@@ -26,7 +26,6 @@ def get_606_guide(**kwargs):
             "outer_edge_radius_mm": 1.5,
             "lower_nut_lug_radius_mm": 8,
             "edge_pocket_clearance_mm": 0.5,
-            "washer_pocket_clearance_mm": 0.25,
             "horizontal_bolt_bore_mm": 6.4,
             "nut_pocket_start_mm": 12,
         },
@@ -95,7 +94,7 @@ def get_assembly_steps(**kwargs):
         },
         {
             "title": "Stack the edge rollers",
-            "action": "At each station, sandwich one 606 edge bearing between two washers. Centre the washers over the axle slot and lower the upper housing onto the flat frame land.",
+            "action": "At each station, sandwich the 606 edge bearing between two washers. Seat the washers in the circular housing recesses, align the axle slot and close the upper housing onto the frame.",
         },
         {
             "title": "Join the guides",

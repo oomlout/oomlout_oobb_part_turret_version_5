@@ -15,7 +15,9 @@ The 6 mm frame and disc have a 75 mm usable centre. The disc carries M6 holes on
 
 ## Parts
 
-[Complete print layout](3dpr.stl) · [One-guide fit sample](guide_fit_sample.stl) · [Hardware and quantities](assembly/parts.csv) · [OOMP record](working.yaml)
+[Complete print layout](3dpr.stl) · [Replacement upper and lower housing pair](guide_pair.stl) · [One-guide fit sample](guide_fit_sample.stl) · [Hardware and quantities](assembly/parts.csv) · [OOMP record](working.yaml)
+
+The circular frame pocket continues into both housings up to the washer seats. It clears the full edge bearing at every axle setting. Print one replacement housing pair per guide.
 
 | Item | Quantity |
 |---|---:|
@@ -69,7 +71,7 @@ Set the frame on the four lower housings with their mounting holes aligned. Cent
 
 **6. Stack the edge rollers**
 
-At each station, sandwich one 606 edge bearing between two washers. Centre the washers over the axle slot and lower the upper housing onto the flat frame land.
+At each station, sandwich the 606 edge bearing between two washers. Seat the washers in the circular housing recesses, align the axle slot and close the upper housing onto the frame.
 
 [![Stack the edge rollers](assembly/cards/step_06.png)](assembly/render/raw/step_06.png)
 

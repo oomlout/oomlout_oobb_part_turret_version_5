@@ -360,7 +360,9 @@ The 6 mm frame and disc have a {g['turret_diameter']*15} mm usable centre. The d
 
 ## Parts
 
-[Complete print layout](3dpr.stl) · [One-guide fit sample](guide_fit_sample.stl) · [Hardware and quantities](assembly/parts.csv) · [OOMP record](working.yaml)
+[Complete print layout](3dpr.stl) · [Replacement upper and lower housing pair](guide_pair.stl) · [One-guide fit sample](guide_fit_sample.stl) · [Hardware and quantities](assembly/parts.csv) · [OOMP record](working.yaml)
+
+The circular frame pocket continues into both housings up to the washer seats. It clears the full edge bearing at every axle setting. Print one replacement housing pair per guide.
 
 | Item | Quantity |
 |---|---:|

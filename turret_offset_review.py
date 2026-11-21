@@ -499,12 +499,18 @@ def draw_clamp_comparison(**kwargs):
     geometry, layout = variants[0]
     clamp = geometry["guide"]["common_clamp"]
     face = geometry["housing"]["face_axle_radius_mm"]
-    figure.text(.685,.755,"Shared clamp half",fontsize=15,weight="bold",color=INK)
+    figure.text(.685,.755,"Shared clamp mating face",fontsize=15,weight="bold",color=INK)
     detail = make_axis(figure=figure,bounds=[.68,.21,.295,.51])
     detail.set_xlim(-7,62)
     detail.set_ylim(-27,49)
     vertices = [(x-face,y) for x,y in layout["stations"][0]["outline"]]
     detail.add_patch(Polygon(vertices,fc=CLAMP,ec=INK))
+    radius = layout["pocket_half_width"]
+    pocket_x = layout["pocket_end"]-radius-face
+    recess = Footprint(vertices).intersection(Point(pocket_x,clamp["edge_y_mm"]).buffer(radius))
+    detail.add_patch(Polygon(recess.exterior.coords,fc=TRACK,ec=MUTED,lw=.8))
+    detail.plot([pocket_x+radius*.7,19,25],[clamp["edge_y_mm"]+radius*.7,32,32],color=MUTED,lw=.8)
+    detail.text(26,32,f"Ø{2*radius:g} bearing relief",va="center",size=9.5,color=INK)
     for y in clamp["mount_y_mm"]:
         detail.add_patch(Circle((clamp["mount_x_mm"],y),geometry["m6_hole_diameter_mm"]/2,fc=PAPER,ec=INK))
     low, high = clamp["slot_x_mm"]
